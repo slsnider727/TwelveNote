@@ -53,7 +53,7 @@ namespace TwelveNote.WebMVC.Controllers
             return View(model);
         }
 
-        // POST: Edit
+        // GET: Edit
         public ActionResult Edit(int id)
         {
             var service = CreateNoteService();
@@ -67,6 +67,7 @@ namespace TwelveNote.WebMVC.Controllers
             return View(model);
         }
 
+        // POST: Edit
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, NoteEdit model)
@@ -87,6 +88,27 @@ namespace TwelveNote.WebMVC.Controllers
             }
             ModelState.AddModelError("", "Your note could not be updated.");
             return View();
+        }
+        // GET: Delete
+        public ActionResult Delete(int id)
+        {
+            var service = CreateNoteService();
+            var model = service.GetNoteById(id);
+            return View(model);
+        }
+
+        // POST: Delete
+        [HttpPost]
+        [ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public ActionResult DeleteNote(int id)
+        {
+            var service = CreateNoteService();
+
+            service.DeleteNote(id);
+            TempData["SaveResult"] = "Your note was deleted.";
+
+            return RedirectToAction("Index");
         }
 
         private NoteService CreateNoteService()
