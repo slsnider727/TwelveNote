@@ -12,7 +12,7 @@ namespace TwelveNote.Data
         [Key]
         public int NoteId { get; set; }
         [Required]
-        public Guid OwnderId { get; set; }
+        public Guid OwnerId { get; set; }
         [Required]
         public string Title { get; set; }
         [Required]

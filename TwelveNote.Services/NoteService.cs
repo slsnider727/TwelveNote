@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,7 +22,7 @@ namespace TwelveNote.Services
         {
             var entity = new Note()
             {
-                OwnderId = _userId,
+                OwnerId = _userId,
                 Title = model.Title,
                 Content = model.Content,
                 CreatedUtc = DateTimeOffset.Now
@@ -37,7 +38,7 @@ namespace TwelveNote.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var query = ctx.Notes.Where(e => e.OwnderId == _userId).Select(
+                var query = ctx.Notes.Where(e => e.OwnerId == _userId).Select(
                     e => new NoteListItem
                     {
                         NoteId = e.NoteId,
@@ -53,7 +54,7 @@ namespace TwelveNote.Services
         {
             using (var ctx = new ApplicationDbContext())
             {
-                var entity = ctx.Notes.Single(e => e.NoteId == id && e.OwnderId == _userId);
+                var entity = ctx.Notes.Single(e => e.NoteId == id && e.OwnerId == _userId);
                 return new NoteDetail
                 {
                     NoteId = entity.NoteId,
@@ -62,6 +63,20 @@ namespace TwelveNote.Services
                     CreatedUtc = entity.CreatedUtc,
                     ModifiedUtc = entity.ModifiedUtc
                 }; 
+            }
+        }
+
+        public bool UpdateNote(NoteEdit model)
+        {
+            using (var ctx = new ApplicationDbContext())
+            {
+                var entity = ctx.Notes.Single(e => e.NoteId == model.NoteId && e.OwnerId == _userId);
+
+                entity.Title = model.Title;
+                entity.Content = model.Content;
+                entity.ModifiedUtc = DateTimeOffset.UtcNow;
+
+                return ctx.SaveChanges() == 1;
             }
         }
     }

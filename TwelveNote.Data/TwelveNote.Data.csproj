@@ -63,6 +63,10 @@
     <Compile Include="Migrations\202006241459501_NoteModifiedNullable.Designer.cs">
       <DependentUpon>202006241459501_NoteModifiedNullable.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202006241951039_FixNoteOwnerIdTypo.cs" />
+    <Compile Include="Migrations\202006241951039_FixNoteOwnerIdTypo.Designer.cs">
+      <DependentUpon>202006241951039_FixNoteOwnerIdTypo.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Note.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -77,6 +81,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202006241459501_NoteModifiedNullable.resx">
       <DependentUpon>202006241459501_NoteModifiedNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202006241951039_FixNoteOwnerIdTypo.resx">
+      <DependentUpon>202006241951039_FixNoteOwnerIdTypo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
